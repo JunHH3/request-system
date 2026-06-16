@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>요청 등록</title>
+</head>
+<body>
+<h1>요청 등록</h1>
+
+<form action="/requests" method="post">
+    <p>
+        <label>제목</label><br>
+        <input type="text" name="title">
+    </p>
+
+    <p>
+        <label>내용</label><br>
+        <textarea name="content"></textarea>
+    </p>
+
+    <p>
+        <label>작성자</label><br>
+        <input type="text" name="writer">
+    </p>
+
+    <button type="submit">등록</button>
+</form>
+
+<p>
+    <a href="/">홈으로 돌아가기</a>
+</p>
+</body>
+</html>
