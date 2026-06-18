@@ -1,5 +1,7 @@
 package com.Jun.request_system.dto;
 
+import com.Jun.request_system.entity.Request;
+
 public class RequestForm {
     private String title;
     private String content;
@@ -37,5 +39,9 @@ public class RequestForm {
 
     public RequestForm() {
 
+    }
+
+    public Request toEntity() {
+        return new Request(title, content, writer);
     }
 }
