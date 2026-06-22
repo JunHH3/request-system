@@ -1,0 +1,9 @@
+<h1>요청 목록</h1>
+
+{{#requests}}
+    <p>{{id}} / {{title}} / {{content}} / {{writer}} / {{status}} / {{createdAt}}</p>
+{{/requests}}
+
+{{^requests}}
+    <p>등록된 요청이 없습니다.</p>
+{{/requests}}
