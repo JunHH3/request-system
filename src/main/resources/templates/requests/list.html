@@ -1,9 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>요청 목록</title>
+</head>
+<body>
+
 <h1>요청 목록</h1>
 
-{{#requests}}
-    <p>{{id}} / {{title}} / {{content}} / {{writer}} / {{status}} / {{createdAt}}</p>
-{{/requests}}
+<p>
+    <a href="/">홈으로</a>
+    <a href="/new">요청 등록</a>
+</p>
 
-{{^requests}}
-    <p>등록된 요청이 없습니다.</p>
-{{/requests}}
+<table border="1">
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>작성자</th>
+        <th>상태</th>
+        <th>등록일</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="request : ${requests}">
+        <td th:text="${request.id}"></td>
+        <td th:text="${request.title}"></td>
+        <td th:text="${request.content}"></td>
+        <td th:text="${request.writer}"></td>
+        <td th:text="${request.status}"></td>
+        <td th:text="${request.createdAt}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<p th:if="${#lists.isEmpty(requests)}">등록된 요청이 없습니다.</p>
+
+</body>
+</html>
