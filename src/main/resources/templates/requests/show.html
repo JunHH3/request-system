@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>요청 상세</title>
+</head>
+<body>
+
+<h1>요청 상세</h1>
+
+<p>번호: <span th:text="${request.id}"></span></p>
+<p>제목: <span th:text="${request.title}"></span></p>
+<p>내용: <span th:text="${request.content}"></span></p>
+<p>작성자: <span th:text="${request.writer}"></span></p>
+<p>상태: <span th:text="${request.status}"></span></p>
+<p>등록일: <span th:text="${request.createdAt}"></span></p>
+
+<hr>
+
+<p>
+    <a href="/requests">목록으로 돌아가기</a>
+</p>
+
+<p>
+    <a href="/">홈으로</a>
+</p>
+
+</body>
+</html>

@@ -6,6 +6,7 @@ import com.Jun.request_system.repository.RequestRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -31,5 +32,12 @@ public class RequestController {
         Iterable<Request> requests = requestRepository.findAll();
         model.addAttribute("requests", requests);
         return "requests/list";
+    }
+
+    @GetMapping("/requests/{id}")
+    public String show(@PathVariable Long id, Model model) {
+        Request request = requestRepository.findById(id).orElse(null);
+        model.addAttribute("request", request);
+        return "requests/show";
     }
 }

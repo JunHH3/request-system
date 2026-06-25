@@ -28,7 +28,9 @@
     <tbody>
     <tr th:each="request : ${requests}">
         <td th:text="${request.id}"></td>
-        <td th:text="${request.title}"></td>
+        <td>
+            <a th:href="@{/requests/{id}(id=${request.id})}" th:text="${request.title}"></a>
+        </td>
         <td th:text="${request.content}"></td>
         <td th:text="${request.writer}"></td>
         <td th:text="${request.status}"></td>
