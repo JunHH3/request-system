@@ -40,4 +40,19 @@ public class RequestController {
         model.addAttribute("request", request);
         return "requests/show";
     }
+
+    @GetMapping("/requests/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Request request = requestRepository.findById(id).orElse(null);
+        model.addAttribute("request", request);
+        return "requests/edit";
+    }
+
+    @PostMapping("/requests/{id}/edit")
+    public String update(@PathVariable Long id, RequestForm form) {
+        Request request = requestRepository.findById(id).orElse(null);
+        request.update(form.getTitle(), form.getContent(), form.getWriter());
+        requestRepository.save(request);
+        return "redirect:/requests/" + id;
+    }
 }
