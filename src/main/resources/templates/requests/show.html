@@ -20,6 +20,10 @@
     <a th:href="@{/requests/{id}/edit(id=${request.id})}">수정하기</a>
 </p>
 
+<form th:action="@{/requests/{id}/delete(id=${request.id})}" method="post">
+    <button type="submit">삭제하기</button>
+</form>
+
 <p>
     <a href="/requests">목록으로 돌아가기</a>
 </p>

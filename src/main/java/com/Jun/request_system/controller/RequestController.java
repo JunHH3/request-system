@@ -53,6 +53,12 @@ public class RequestController {
         Request request = requestRepository.findById(id).orElse(null);
         request.update(form.getTitle(), form.getContent(), form.getWriter());
         requestRepository.save(request);
-        return "redirect:/requests/" + id;
+        return "redirect:/requests" + id;
+    }
+
+    @PostMapping("/requests/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        requestRepository.deleteById(id);
+        return "redirect:/requests";
     }
 }
