@@ -20,6 +20,25 @@
     <a th:href="@{/requests/{id}/edit(id=${request.id})}">수정하기</a>
 </p>
 
+<hr>
+
+<h3>상태 변경</h3>
+
+<form th:action="@{/requests/{id}/status(id=${request.id})}" method="post">
+    <input type="hidden" name="status" value="접수">
+    <button type="submit">접수로 변경</button>
+</form>
+
+<form th:action="@{/requests/{id}/status(id=${request.id})}" method="post">
+    <input type="hidden" name="status" value="진행중">
+    <button type="submit">진행중으로 변경</button>
+</form>
+
+<form th:action="@{/requests/{id}/status(id=${request.id})}" method="post">
+    <input type="hidden" name="status" value="완료">
+    <button type="submit">완료로 변경</button>
+</form>
+
 <form th:action="@{/requests/{id}/delete(id=${request.id})}" method="post">
     <button type="submit">삭제하기</button>
 </form>

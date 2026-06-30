@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 public class Request {
 
+    /** 1. 필드 영역 **/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,6 +19,8 @@ public class Request {
     private String status;
     private LocalDateTime createdAt;
 
+
+    /** 2. 생성자 영역 **/
     public Request () {
     }
 
@@ -29,6 +32,7 @@ public class Request {
         this.createdAt = LocalDateTime.now();
     }
 
+    /** 3. Getter 영역 **/
     public Long getId() {
         return id;
     }
@@ -53,10 +57,14 @@ public class Request {
         return createdAt;
     }
 
-
+    /** 4. 기능 메서드 영역 **/
     public void update(String title, String content, String writer) {
         this.title = title;
         this.content = content;
         this.writer = writer;
+    }
+
+    public void changeStatus(String status) {
+        this.status = status;
     }
 }
