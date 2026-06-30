@@ -41,6 +41,9 @@ public class RequestController {
     @GetMapping("/requests/{id}")
     public String show(@PathVariable Long id, Model model) {
         Request request = requestRepository.findById(id).orElse(null);
+        if (request == null) {
+            return "redirect:/requests";
+        }
         model.addAttribute("request", request);
         return "requests/show";
     }
@@ -48,6 +51,9 @@ public class RequestController {
     @GetMapping("/requests/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
         Request request = requestRepository.findById(id).orElse(null);
+        if (request == null) {
+            return "redirect:/requests";
+        }
         model.addAttribute("request", request);
         return "requests/edit";
     }
@@ -55,6 +61,9 @@ public class RequestController {
     @PostMapping("/requests/{id}/edit")
     public String update(@PathVariable Long id, RequestForm form) {
         Request request = requestRepository.findById(id).orElse(null);
+        if (request == null) {
+            return "redirect:/requests";
+        }
         request.update(form.getTitle(), form.getContent(), form.getWriter());
         requestRepository.save(request);
         return "redirect:/requests/" + id;
@@ -62,6 +71,10 @@ public class RequestController {
 
     @PostMapping("/requests/{id}/delete")
     public String delete(@PathVariable Long id) {
+        Request request = requestRepository.findById(id).orElse(null);
+        if (request == null) {
+            return "redirect:/requests";
+        }
         requestRepository.deleteById(id);
         return "redirect:/requests";
     }
@@ -69,6 +82,9 @@ public class RequestController {
     @PostMapping("/requests/{id}/status")
     public String status(@PathVariable Long id, @RequestParam String status) {
         Request request = requestRepository.findById(id).orElse(null);
+        if (request == null) {
+            return "redirect:/requests";
+        }
         request.changeStatus(status);
         requestRepository.save(request);
         return "redirect:/requests/" + id;
