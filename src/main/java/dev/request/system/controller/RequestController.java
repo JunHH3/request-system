@@ -3,6 +3,7 @@ package dev.request.system.controller;
 import dev.request.system.dto.RequestForm;
 import dev.request.system.entity.Request;
 import dev.request.system.repository.RequestRepository;
+import dev.request.system.service.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RequestController {
 
-    private final RequestRepository requestRepository;
+    private final RequestService requestService;
 
-    public RequestController(RequestRepository requestRepository) {
-        this.requestRepository = requestRepository;
+    public RequestController(RequestService requestService) {
+        this.requestService = requestService;
     }
 
     @GetMapping("/requests/new")
@@ -23,11 +24,7 @@ public class RequestController {
 
     @PostMapping("/requests")
     public String createRequest(RequestForm form){
-
-        Request request = new Request(form.getTitle(), form.getContent());
-
-        requestRepository.save(request);
-
+        requestService.createRequest(form);
         return "redirect:/requests/new";
     }
 }
