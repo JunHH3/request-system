@@ -1,7 +1,13 @@
 package dev.request.system.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class RequestForm {
+
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String content;
 
     public String getTitle() {

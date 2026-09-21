@@ -1,10 +1,10 @@
 package dev.request.system.controller;
 
 import dev.request.system.dto.RequestForm;
-import dev.request.system.entity.Request;
-import dev.request.system.repository.RequestRepository;
 import dev.request.system.service.RequestService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,7 +23,12 @@ public class RequestController {
     }
 
     @PostMapping("/requests")
-    public String createRequest(RequestForm form){
+    public String createRequest(@Valid RequestForm form, BindingResult result){
+
+        if (result.hasErrors()) {
+            return "request/new";
+        }
+
         requestService.createRequest(form);
         return "redirect:/requests/new";
     }
