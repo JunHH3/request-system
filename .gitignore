@@ -1,16 +1,16 @@
 HELP.md
 .gradle
-main.java.review.build/
+build/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/main.java.review.build/
-!**/src/test/**/main.java.review.build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 ### STS ###
 .apt_generated
 .classpath
 .factorypath
 .project
-.main.java.review.settings
+.settings
 .springBeans
 .sts4-cache
 bin/
