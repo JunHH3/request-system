@@ -30,4 +30,15 @@ public class RequestService {
     public Request findByRequestId(Long id) {
         return requestRepository.findById(id).orElseThrow();
     }
+
+    public void updateRequest(Long id, RequestForm form) {
+        Request request = requestRepository.findById(id).orElseThrow();
+        request.update(form.getTitle(), form.getContent());
+        requestRepository.save(request);
+    }
+
+    public void deleteRequest(Long id){
+        requestRepository.deleteById(id);
+    }
+
 }

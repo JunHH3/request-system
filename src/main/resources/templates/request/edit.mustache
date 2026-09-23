@@ -1,0 +1,9 @@
+<h1>수정 화면</h1>
+
+{{#request}}
+    <form action="/requests/{{id}}/edit" method="post">
+        <input type="text" name="title" value="{{title}}">
+        <textarea name="content">{{content}}</textarea>
+        <button type="submit">수정 버튼</button>
+    </form>
+{{/request}}

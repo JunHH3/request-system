@@ -39,8 +39,26 @@ public class RequestController {
         return "request/detail";
     }
 
+    @GetMapping("/requests/{id}/edit")
+    public String editRequest(@PathVariable Long id, Model model) {
+        Request request = requestService.findByRequestId(id);
+        model.addAttribute("request", request);
+        return "request/edit";
+    }
+
+    @PostMapping("/requests/{id}/edit")
+    public String updateRequest(@PathVariable Long id, @Valid RequestForm form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            Request request = requestService.findByRequestId(id);
+            model.addAttribute("request", request);
+            return "request/edit";
+        }
+        requestService.updateRequest(id, form);
+        return "redirect:/requests/" + id;
+    }
+
     @PostMapping("/requests")
-    public String createRequest(@Valid RequestForm form, BindingResult result){
+    public String createRequest(@Valid RequestForm form, BindingResult result) {
 
         if (result.hasErrors()) {
             return "request/new";
@@ -49,4 +67,11 @@ public class RequestController {
         requestService.createRequest(form);
         return "redirect:/requests/new";
     }
+
+    @PostMapping("/requests/{id}/delete")
+    public String deleteRequest(@PathVariable Long id) {
+        requestService.deleteRequest(id);
+        return "redirect:/requests";
+    }
+
 }
