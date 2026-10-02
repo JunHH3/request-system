@@ -74,4 +74,22 @@ public class RequestControllerTest {
                 .andExpect(redirectedUrl("/requests"));
         verify(requestService).deleteRequest(1L);
     }
+
+    @Test
+    void 요청처리를_시작한다() throws Exception{
+        mockMvc.perform(
+                post("/requests/1/progress")
+        )
+                .andExpect(redirectedUrl("/requests/1"));
+        verify(requestService).startProgress(1L);
+    }
+
+    @Test
+    void 요청을_완료한다() throws Exception{
+        mockMvc.perform(
+                post("/requests/1/complete")
+        )
+                .andExpect(redirectedUrl("/requests/1"));
+        verify(requestService).completeRequest(1L);
+    }
 }

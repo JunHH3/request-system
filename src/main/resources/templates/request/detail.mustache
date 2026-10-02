@@ -3,6 +3,15 @@
 {{#request}}
     <h2>{{title}}</h2>
     <p>{{content}}</p>
+    <p>상태: {{requestStatus}}</p>
+
+    <form action="/requests/{{id}}/progress" method="post">
+        <button type="submit">처리 시작</button>
+    </form>
+
+    <form action="/requests/{{id}}/complete" method="post">
+        <button type="submit">완료</button>
+    </form>
 
     <a href="/requests/{{id}}/edit">수정</a>
 

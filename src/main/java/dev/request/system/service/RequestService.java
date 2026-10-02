@@ -41,4 +41,16 @@ public class RequestService {
         requestRepository.deleteById(id);
     }
 
+    public void startProgress(Long id) {
+        Request request = requestRepository.findById(id).orElseThrow();
+        request.startProgress();
+        requestRepository.save(request);
+    }
+
+    public void completeRequest(Long id) {
+        Request request = requestRepository.findById(id).orElseThrow();
+        request.complete();
+        requestRepository.save(request);
+    }
+
 }

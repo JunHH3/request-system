@@ -74,4 +74,16 @@ public class RequestController {
         return "redirect:/requests";
     }
 
+    @PostMapping("/requests/{id}/progress")
+    public String startRequest(@PathVariable Long id) {
+        requestService.startProgress(id);
+        return "redirect:/requests/" + id;
+    }
+
+    @PostMapping("/requests/{id}/complete")
+    public String completeRequest(@PathVariable Long id) {
+        requestService.completeRequest(id);
+        return "redirect:/requests/" + id;
+    }
+
 }
