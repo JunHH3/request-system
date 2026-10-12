@@ -2,6 +2,7 @@ package dev.request.system.controller;
 
 import dev.request.system.dto.RequestForm;
 import dev.request.system.entity.Request;
+import dev.request.system.exception.RequestNotFoundException;
 import dev.request.system.service.RequestService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +92,16 @@ public class RequestControllerTest {
         )
                 .andExpect(redirectedUrl("/requests/1"));
         verify(requestService).completeRequest(1L);
+    }
+
+    @Test
+    void 존재하지않은_요청은_404를_반환한다() throws  Exception{
+        when(requestService.findByRequestId(99999L))
+                .thenThrow(new RequestNotFoundException(99999L));
+        mockMvc.perform(get("/requests/99999"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("error/404"))
+                .andExpect(model().attribute("message",
+                        "요청을 찾을 수 없습니다. ID: 99999"));
     }
 }

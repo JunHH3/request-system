@@ -2,6 +2,7 @@ package dev.request.system.service;
 
 import dev.request.system.dto.RequestForm;
 import dev.request.system.entity.Request;
+import dev.request.system.exception.RequestNotFoundException;
 import dev.request.system.repository.RequestRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -28,7 +29,8 @@ public class RequestService {
     }
 
     public Request findByRequestId(Long id) {
-        return requestRepository.findById(id).orElseThrow();
+        return requestRepository.findById(id)
+                .orElseThrow(() -> new RequestNotFoundException(id));
     }
 
     public void updateRequest(Long id, RequestForm form) {
