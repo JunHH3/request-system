@@ -62,4 +62,48 @@ public class RequestServiceTest {
 
         assertEquals(before, after);
     }
+
+    @Test
+    void 진행전_완료처리하면_예외가_발생한다(){
+        // 1. RECEIVED 상태의 요청 저장
+        Request request = requestRepository.save(
+                new Request("텍스트 제목", "텍스트 내용")
+        );
+
+        // 2~3. 완료 처리 시 IllegalStateException 발생 검증
+        assertThrows(IllegalStateException.class, () ->
+                requestService.completeRequest(request.getId()));
+
+        // 4. DB에서 다시 조회
+        Request result = requestRepository.findById(request.getId())
+                .orElseThrow();
+
+        // 5. 상태가 RECEIVED인지 검증
+        assertEquals(RequestStatus.RECEIVED, result.getRequestStatus());
+    }
+
+    @Test
+    void 요청이_정상적으로_완료된다() {
+
+        // 1. RECEIVED 상태의 요청 저장
+        Request request = new Request("제목", "내용");
+        requestRepository.save(request);
+
+        // 2. startProgress() 실행
+        requestService.startProgress(request.getId());
+
+        // 3. DB에서 조회하여 IN_PROGRESS 확인
+        Request request1 = requestRepository.findById(request.getId())
+                        .orElseThrow();
+        assertEquals(RequestStatus.IN_PROGRESS, request1.getRequestStatus());
+
+        // 4. completeRequest() 실행
+        requestService.completeRequest(request.getId());
+
+        // 5. DB에서 다시 조회하여 COMPLETED 확인
+        // 5. 완료 처리 후 DB에서 다시 조회
+        Request request2 = requestRepository.findById(request.getId())
+                .orElseThrow();
+        assertEquals(RequestStatus.COMPLETED, request2.getRequestStatus());
+    }
 }
