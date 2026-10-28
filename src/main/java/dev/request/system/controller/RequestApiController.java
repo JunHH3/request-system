@@ -1,12 +1,11 @@
 package dev.request.system.controller;
 
 import dev.request.system.dto.RequestCreateDto;
+import dev.request.system.dto.RequestForm;
 import dev.request.system.entity.Request;
 import dev.request.system.service.RequestService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Objects;
@@ -43,4 +42,20 @@ public class RequestApiController {
                 "status", saved.getRequestStatus().name()
         );
     }
+
+    @PatchMapping("/api/requests/{id}")
+    public Map<String, String> update(
+            @PathVariable Long id,
+            @Valid @RequestBody RequestForm form
+            ){
+        requestService.updateRequest(id, form);
+        return Map.of("message", "updated");
+    }
+
+    @DeleteMapping("/api/requests/{id}")
+    public Map<String, String> delete(@PathVariable Long id){
+    requestService.deleteRequest(id);
+    return Map.of("message", "deleted");
+    }
+
 }
