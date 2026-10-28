@@ -5,6 +5,8 @@ import dev.request.system.dto.RequestForm;
 import dev.request.system.entity.Request;
 import dev.request.system.service.RequestService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -32,15 +34,17 @@ public class RequestApiController {
     }
 
     @PostMapping("/api/requests")
-    public Map<String, Object> create(@RequestBody RequestCreateDto dto) {
+    public ResponseEntity<Map<String, Object>> create(@Valid @RequestBody RequestCreateDto dto) {
         Request saved = requestService.createRequest(
                 dto.title(), dto.content()
         );
 
-        return Map.of(
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Map.of(
                 "id", saved.getId(),
                 "status", saved.getRequestStatus().name()
-        );
+        ));
     }
 
     @PatchMapping("/api/requests/{id}")

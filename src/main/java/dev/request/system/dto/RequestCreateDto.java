@@ -1,7 +1,9 @@
 package dev.request.system.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record RequestCreateDto(
-        String title,
-        String content
+        @NotBlank String title,
+        @NotBlank String content
 ) {
 }
