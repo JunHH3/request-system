@@ -21,8 +21,12 @@ public class RequestService {
     }
 
     public void createRequest(RequestForm form) {
-        Request request = new Request(form.getTitle(), form.getContent());
-        requestRepository.save(request);
+       createRequest(form.getTitle(), form.getContent());
+    }
+
+    public Request createRequest(String title, String content) {
+        Request request = new Request(title, content);
+        return requestRepository.save(request);
     }
 
     public Iterable<Request> findAllRequests() {
